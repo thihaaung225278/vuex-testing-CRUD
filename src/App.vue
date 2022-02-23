@@ -1,5 +1,5 @@
 <template>
-  <h1>Hello</h1>
+  <h1>Vuex Testing Project</h1>
   <Todo></Todo>
 </template>
 
