@@ -12,7 +12,7 @@
       </div>
       <div class="row mt-3">
           <div class="col-md-4" v-for="todo in myTodos" :key="todo.id">
-                <div class="card text-dark bg-light mb-3 shadow-sm">
+                <div class="card text-dark mb-3 shadow-sm" :class="dynamicBackground(todo)" @dblclick="toggleComplete(todo)" >
                     <div class="card-header d-flex justify-content-between">
                         <span>{{todo.title}}</span>
                         <span @click="deleteTodo(todo.id)"><i class="bi bi-trash text-danger"></i></span>
@@ -31,11 +31,20 @@ export default {
   components: {
     FilterTodo, AddTodo },
     computed: mapGetters(['myTodos','myBlogs']),
-    methods: mapActions(['getTodos','deleteTodo']),
+    methods: {
+        ...mapActions(['getTodos','deleteTodo','updateTodo']),
+        dynamicBackground(todo){
+            return todo.completed? "bg-light" : "bg-info"
+        },
+        toggleComplete(todo){
+            todo.completed = !todo.completed;
+            this.updateTodo(todo);
+        }
+    },
     mounted(){
-        console.log(this.myTodos);
         this.getTodos();
     }
+    
 }
 </script>
 
